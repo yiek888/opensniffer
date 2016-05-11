@@ -60,6 +60,7 @@ ISM2480 = 'chn=26&modul=0'
 
 # Initilization ========================================================
 
+'''
 # Create socket (AF_INET -> IPV4, SOCK_DGRAM -> UDP)
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -87,6 +88,7 @@ except socket.error as msg:
 except:
     # Else notify user of failure
     print 'ERR: Bind to socket failed'
+'''
     
 # Functions ============================================================
 
@@ -182,7 +184,6 @@ class OpenSniffer:
             self.PASS = 0
             # Notify user
             print 'ERR: Unable to communicate with sniffer'
-            # Return error value
             return False
         
         # Return AOK value if no errors were detected
@@ -190,6 +191,9 @@ class OpenSniffer:
     
     # Retrieves what's in socket
     def readBytes(self, num):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sock.bind(("10.10.10.1", 17754))
         # So that python knows we mean global variable
         global sock
         # Buffer
